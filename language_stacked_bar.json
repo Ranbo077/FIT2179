@@ -1,0 +1,77 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Non-English language use is highest in the Northern Territory, Victoria and NSW",
+    "subtitle": "Share of people speaking English or a non-English language at home, 2021"
+  },
+  "width": 720,
+  "height": 420,
+  "data": {
+    "url": "language_summary_by_state_2021.csv"
+  },
+  "transform": [
+    {
+      "fold": [
+        "english_at_home_percent_2021",
+        "non_english_language_percent_2021"
+      ],
+      "as": ["language_group", "percent"]
+    },
+    {
+      "calculate": "datum.language_group == 'english_at_home_percent_2021' ? 'English at home' : 'Non-English language at home'",
+      "as": "Language group"
+    }
+  ],
+  "mark": {
+    "type": "bar"
+  },
+  "encoding": {
+    "x": {
+      "field": "state",
+      "type": "nominal",
+      "title": "State or territory",
+      "axis": {
+        "labelAngle": -35
+      }
+    },
+    "y": {
+      "field": "percent",
+      "type": "quantitative",
+      "title": "Share of population (%)",
+      "stack": "normalize",
+      "axis": {
+        "format": ".0%"
+      }
+    },
+    "color": {
+      "field": "Language group",
+      "type": "nominal",
+      "title": "Language group",
+      "scale": {
+        "domain": ["English at home", "Non-English language at home"],
+        "range": ["#9ecae1", "#08519c"]
+      }
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "title": "State or territory"
+      },
+      {
+        "field": "Language group",
+        "title": "Language group"
+      },
+      {
+        "field": "percent",
+        "title": "Share (%)",
+        "format": ".1f"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "background": "white"
+  }
+}

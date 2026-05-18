@@ -1,0 +1,69 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {
+        "text": "NSW and Victoria show stronger concentrations of major birthplaces",
+        "subtitle": "Population by country of birth and state or territory, 2021"
+    },
+    "width": 720,
+    "height": 420,
+    "data": {
+        "url": "birth_country_by_state_2021_top10.csv"
+    },
+    "transform": [
+        {
+            "filter": "indexof(['India', 'England', 'China', 'New Zealand', 'Philippines', 'Vietnam', 'South Africa', 'Nepal', 'Sri Lanka', 'Malaysia'], datum.country) >= 0"
+        }
+    ],
+    "mark": {
+        "type": "rect"
+    },
+    "encoding": {
+        "x": {
+            "field": "state",
+            "type": "nominal",
+            "title": "State or territory",
+            "axis": {
+                "labelAngle": -35
+            }
+        },
+        "y": {
+        "field": "country",
+        "type": "nominal",
+        "title": "Country of birth",
+        "sort": ["India", "England", "China", "New Zealand", "Philippines", "Vietnam", "South Africa", "Nepal", "Sri Lanka", "Malaysia"]
+        },
+        "color": {
+            "field": "population_2021",
+            "type": "quantitative",
+            "title": "Population",
+            "scale": {
+                "scheme": "blues",
+                "naColor": "#f2f2f2"
+            },
+            "legend": {
+                "format": ",.0f"
+            }
+        },
+        "tooltip": [
+            {
+                "field": "state",
+                "title": "State or territory"
+            },
+            {
+                "field": "country",
+                "title": "Country of birth"
+            },
+            {
+                "field": "population_2021",
+                "title": "Population",
+                "format": ","
+            }
+        ]
+    },
+    "config": {
+        "view": {
+            "stroke": null
+        },
+        "background": "white"
+    }
+}

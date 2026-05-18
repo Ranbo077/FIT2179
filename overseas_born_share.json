@@ -1,0 +1,96 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {
+        "text": "The overseas-born share rose from about 23% to 32%",
+        "subtitle": "Share of Australia's population born overseas, 1996 to 2025",
+        "subtitleFontStyle": "italic",
+        "subtitleFontSize": 12,
+        "anchor": "start"
+    },
+    "width": 720,
+    "height": 350,
+    "data": {
+        "url": "overseas_born_share_trend.csv"
+    },
+    "layer": [
+        {
+            "mark": {
+                "type": "area",
+                "opacity": 0.35
+            },
+            "encoding": {
+                "x": {
+                    "field": "year",
+                    "type": "ordinal",
+                    "title": "Year"
+                },
+                "y": {
+                    "field": "overseas_born_percent",
+                    "type": "quantitative",
+                    "title": "Overseas-born population (%)",
+                    "scale": {
+                        "domain": [
+                            20,
+                            35
+                        ]
+                    },
+                    "axis": {
+                        "format": ".1f"
+                    }
+                },
+                "y2": {
+                    "datum": 20
+                }
+            }
+        },
+        {
+            "mark": {
+                "type": "line",
+                "point": true,
+                "strokeWidth": 3
+            },
+            "encoding": {
+                "x": {
+                    "field": "year",
+                    "type": "ordinal",
+                    "title": "Year"
+                },
+                "y": {
+                    "field": "overseas_born_percent",
+                    "type": "quantitative",
+                    "title": "Overseas-born population (%)",
+                    "axis": {
+                        "format": ".1f"
+                    }
+                },
+                "tooltip": [
+                    {
+                        "field": "year",
+                        "title": "Year"
+                    },
+                    {
+                        "field": "overseas_born_percent",
+                        "title": "Overseas-born (%)",
+                        "format": ".1f"
+                    },
+                    {
+                        "field": "overseas_born_population",
+                        "title": "Overseas-born population",
+                        "format": ","
+                    },
+                    {
+                        "field": "total_population",
+                        "title": "Total population",
+                        "format": ","
+                    }
+                ]
+            }
+        }
+    ],
+    "config": {
+        "view": {
+            "stroke": null
+        },
+        "background": "white"
+    }
+}

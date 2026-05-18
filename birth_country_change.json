@@ -1,0 +1,114 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "India and China grew strongly as birthplaces since 1996",
+    "subtitle": "Population in Australia by country of birth, 1996 and 2025"
+  },
+  "width": 720,
+  "height": 420,
+  "data": {
+    "url": "country_of_birth_trend_top8.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.year == 1996 || datum.year == 2025 || datum.year == '1996' || datum.year == '2025'"
+    },
+    {
+      "calculate": "datum.country == 'India' ? -12 : datum.country == 'England' ? 12 : datum.country == 'South Africa' ? -8 : datum.country == 'Nepal' ? 10 : 0",
+      "as": "label_dy"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "point": true,
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "title": "Year"
+        },
+        "y": {
+          "field": "population",
+          "type": "quantitative",
+          "title": "Population in Australia",
+          "axis": {
+            "format": ",.0f"
+          }
+        },
+        "color": {
+          "field": "country",
+          "type": "nominal",
+          "title": "Country of birth",
+          "legend": {
+            "orient": "right",
+            "labelFontSize": 11,
+            "titleFontSize": 12
+          }
+        },
+        "detail": {
+          "field": "country"
+        },
+        "tooltip": [
+          {
+            "field": "country",
+            "title": "Country of birth"
+          },
+          {
+            "field": "year",
+            "title": "Year"
+          },
+          {
+            "field": "population",
+            "title": "Population",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.year == 2025 || datum.year == '2025'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 12,
+        "fontSize": 11
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "population",
+          "type": "quantitative"
+        },
+        "yOffset": {
+          "field": "label_dy",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "country"
+        },
+        "color": {
+          "field": "country",
+          "type": "nominal",
+          "legend": null
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "background": "white"
+  }
+}

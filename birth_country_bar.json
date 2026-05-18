@@ -1,0 +1,50 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "India, England and China were the largest birthplaces in 2025",
+    "subtitle": "Top countries of birth among Australia's overseas-born population, 2025",
+    "subtitleFontStyle": "italic",
+    "anchor": "start"
+  },
+  "width": 720,
+  "height": 420,
+  "data": {
+    "url": "country_of_birth_top_2025.csv"
+  },
+  "mark": {
+    "type": "bar"
+  },
+  "encoding": {
+    "y": {
+      "field": "country",
+      "type": "nominal",
+      "title": "Country of birth",
+      "sort": "-x"
+    },
+    "x": {
+      "field": "population_2025",
+      "type": "quantitative",
+      "title": "Population in Australia",
+      "axis": {
+        "format": ",.0f"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "country",
+        "title": "Country of birth"
+      },
+      {
+        "field": "population_2025",
+        "title": "Population in Australia",
+        "format": ","
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "background": "white"
+  }
+}

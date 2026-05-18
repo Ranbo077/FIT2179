@@ -1,23 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Australia's Changing Cultural Landscape</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<head>
+    <meta charset="UTF-8" />
+    <title>Australia's Changing Cultural Landscape</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            background-color: #f5f7fa;
+            color: #1f2933;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .hero {
+            background: white;
+            padding: 40px;
+            border-radius: 18px;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            line-height: 1.15;
+            margin: 0 0 16px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 850px;
+            margin: 0;
+        }
+
+        .chart-section {
+            background: white;
+            padding: 32px;
+            border-radius: 18px;
+            margin-bottom: 32px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+        }
+
+        .chart-section h2 {
+            font-size: 28px;
+            line-height: 1.25;
+            margin: 0 0 12px;
+        }
+
+        .chart-section p {
+            font-size: 16px;
+            line-height: 1.65;
+            max-width: 900px;
+            margin: 0 0 24px;
+        }
+
+        .chart-box {
+            overflow-x: auto;
+        }
+
+        .source-note {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #5f6b7a;
+            margin-top: 12px;
+        }
+
+        .footer {
+            background: white;
+            padding: 28px 32px;
+            border-radius: 18px;
+            margin-top: 40px;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #4b5563;
+        }
+
+        strong {
+            color: #111827;
+        }
+    </style>
+
 </head>
 
 <body>
-  <h1>Australia's Changing Cultural Landscape</h1>
+    <main class="page">
 
-  <p>
-    This map shows the share of overseas-born population across Australian states and territories.
-  </p>
+        <section class="hero">
+            <h1>Australia's Changing Cultural Landscape</h1>
+            <p>
+                Australia has become increasingly culturally diverse over time. This visualisation explores how
+                migration, birthplace, state-level differences and language use show the changing profile of modern
+                Australia.
+            </p>
+        </section>
 
-  <div id="map"></div>
+        <section class="chart-section">
+            <h2>Where are overseas-born Australians concentrated?</h2>
+            <p>
+                The map shows the share of overseas-born population across Australian states and territories. Western
+                Australia, Victoria and New South Wales show relatively high levels of overseas-born residents.
+            </p>
+            <div class="chart-box">
+                <div id="map"></div>
+            </div>
+            <p class="source-note">Source: ABS Census 2021, Cultural Diversity data.</p>
+        </section>
 
-  <script src="script.js"></script>
+        <section class="chart-section">
+            <h2>How has migration changed over time?</h2>
+            <p>
+                Net overseas migration fell sharply during the COVID-19 border closure period, then rebounded strongly
+                as international movement resumed.
+            </p>
+            <div class="chart-box">
+                <div id="trend"></div>
+            </div>
+            <p class="source-note">Source: ABS Overseas Migration, 2004–05 to 2024–25.</p>
+        </section>
+
+        <section class="chart-section">
+            <h2>Where do overseas-born Australians come from?</h2>
+            <p>
+                Australia's overseas-born population comes from a wide range of countries. In 2025, India, England and
+                China were the three largest birthplaces among overseas-born residents.
+            </p>
+            <div class="chart-box">
+                <div id="birth-country-bar"></div>
+            </div>
+            <p class="source-note">Source: ABS Australia's Population by Country of Birth, 2025.</p>
+        </section>
+
+        <section class="chart-section">
+            <h2>Which migrant communities have grown over time?</h2>
+            <p>
+                Comparing 1996 and 2025 shows that Australia's overseas-born population has not only grown, but also
+                changed in composition. India and China grew strongly, while England remained one of the largest
+                birthplaces.
+            </p>
+            <div class="chart-box">
+                <div id="birth-country-change"></div>
+            </div>
+        </section>
+
+        <section class="chart-section">
+            <h2>Has Australia become more overseas-born over time?</h2>
+            <p>
+                Migration does not only change annual movement flows. Over the longer term, it has also changed the
+                structure of Australia's population, with a growing share of residents born overseas.
+            </p>
+            <div class="chart-box">
+                <div id="overseas-born-share"></div>
+            </div>
+        </section>
+
+        <section class="chart-section">
+            <h2>Do all states have the same birthplace profile?</h2>
+            <p>
+                The national pattern hides important state-level differences. India and China are strongly represented
+                in New South Wales and Victoria, while New Zealand is more visible in Queensland and Western Australia.
+            </p>
+            <div class="chart-box">
+                <div id="birth-country-state-heatmap"></div>
+            </div>
+        </section>
+
+        <section class="chart-section">
+            <h2>Does cultural diversity appear in everyday language use?</h2>
+            <p>
+                Language use at home provides another view of cultural diversity. The Northern Territory, Victoria and
+                New South Wales have the highest shares of residents speaking a language other than English at home.
+            </p>
+            <div class="chart-box">
+                <div id="language-stacked-bar"></div>
+            </div>
+        </section>
+
+        <section class="footer">
+            <h2>Sources and metadata</h2>
+
+            <p>
+                <strong>Author:</strong> Jiawei Huang
+            </p>
+
+            <p>
+                <strong>Date:</strong> May 2026
+            </p>
+
+            <p>
+                <strong>Data sources:</strong>
+                Australian Bureau of Statistics (ABS), Census 2021 Cultural Diversity data;
+                ABS Overseas Migration 2024–25;
+                ABS Australia's Population by Country of Birth 2025.
+            </p>
+
+            <p>
+                <strong>Geographic data:</strong>
+                Australia state and territory TopoJSON boundary file used for the choropleth map.
+            </p>
+
+            <p>
+                <strong>Tools:</strong>
+                Vega-Lite, HTML, CSS, JavaScript, GitHub Pages.
+            </p>
+
+            <p>
+                <strong>AI acknowledgement:</strong>
+                Generative AI was used to support code debugging, text refinement, data preparation and visualisation
+                planning. The final design decisions and implementation were reviewed and edited by the author.
+            </p>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
