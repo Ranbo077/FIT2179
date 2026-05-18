@@ -78,7 +78,8 @@
       "mark": {
         "type": "text",
         "align": "right",
-        "dx": -350,
+        "dx": 32,
+        "dy": -20,
         "fontSize": 11
       },
       "encoding": {
