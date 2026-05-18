@@ -1,0 +1,63 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Australia — Marriage rate by state, 2024",
+    "subtitle": "ABS Marriages & Divorces 2024 · unit: per 1,000 (age 16+)"
+  },
+  "width": 720,
+  "height": 520,
+  "layer": [
+    {
+      "data": { "graticule": { "step": [15, 15] } },
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#dbe3ea",
+        "strokeWidth": 0.6,
+        "fill": null,
+        "opacity": 0.7,
+        "clip": true
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/Ranbo077/FIT3179/main/WEEK9/australia_states.json",
+        "format": { "type": "topojson", "feature": "australia_states" }
+      },
+      "transform": [
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/Ranbo077/FIT3179/main/WEEK9/Marriage_and_Divorce_Rates_Per1000_2024.csv"
+            },
+            "key": "State/Territory",
+            "fields": [
+              "marriage_rate_per_1000_2024",
+              "divorce_rate_per_1000_2024"
+            ]
+          }
+        }
+      ],
+      "projection": { "type": "mercator", "center": [133, -28], "scale": 900 },
+      "mark": { "type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1 },
+      "encoding": {
+        "color": {
+          "field": "marriage_rate_per_1000_2024",
+          "type": "quantitative",
+          "title": "Marriage rate (per 1,000, age 16+)",
+          "scale": { "scheme": "blues", "domain": [0, 8], "naColor": "#eeeeee" }
+        },
+        "tooltip": [
+          { "field": "properties.name", "title": "State/Territory" },
+          { "field": "marriage_rate_per_1000_2024", "title": "Marriage rate", "format": ".1f" },
+          { "field": "divorce_rate_per_1000_2024", "title": "Divorce rate", "format": ".1f" }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": { "stroke": null },
+    "background": "white",
+    "geoshape": { "invalid": null }
+  }
+}
