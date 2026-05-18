@@ -1,8 +1,11 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
-    "text": "Australia — Marriage rate by state, 2024",
-    "subtitle": "ABS Marriages & Divorces 2024 · unit: per 1,000 (age 16+)"
+    "text": "Where are overseas-born Australians concentrated?",
+    "subtitle": "Share of population born overseas by state and territory, 2021",
+    "subtitleFontStyle": "italic",
+    "subtitleFontSize": 12,
+    "anchor": "start"
   },
   "width": 720,
   "height": 520,
@@ -20,38 +23,56 @@
     },
     {
       "data": {
-        "url": "https://raw.githubusercontent.com/Ranbo077/FIT3179/main/WEEK9/australia_states.json",
-        "format": { "type": "topojson", "feature": "australia_states" }
+        "url": "australia_states.json",
+        "format": { "type": "topojson", "feature": "australia_states.json" }
       },
       "transform": [
         {
           "lookup": "properties.name",
           "from": {
             "data": {
-              "url": "https://raw.githubusercontent.com/Ranbo077/FIT3179/main/WEEK9/Marriage_and_Divorce_Rates_Per1000_2024.csv"
+              "url": "state_diversity_summary.csv"
             },
-            "key": "State/Territory",
+            "key": "state",
             "fields": [
-              "marriage_rate_per_1000_2024",
-              "divorce_rate_per_1000_2024"
+              "overseas_born_population_2021",
+              "total_population_2021",
+              "overseas_born_percent_2021",
+              "non_english_language_count_2021",
+              "non_english_language_percent_2021"
             ]
           }
         }
       ],
-      "projection": { "type": "mercator", "center": [133, -28], "scale": 900 },
-      "mark": { "type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1 },
+      "projection": {
+        "type": "mercator",
+        "center": [133, -28],
+        "scale": 900
+      },
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#ffffff",
+        "strokeWidth": 1
+      },
       "encoding": {
         "color": {
-          "field": "marriage_rate_per_1000_2024",
+          "field": "overseas_born_percent_2021",
           "type": "quantitative",
-          "title": "Marriage rate (per 1,000, age 16+)",
-          "scale": { "scheme": "blues", "domain": [0, 8], "naColor": "#eeeeee" }
+          "title": "Overseas-born population (%)",
+          "scale": {
+            "scheme": "blues",
+            "domain": [0, 45],
+            "naColor": "#eeeeee"
+          }
         },
-        "tooltip": [
-          { "field": "properties.name", "title": "State/Territory" },
-          { "field": "marriage_rate_per_1000_2024", "title": "Marriage rate", "format": ".1f" },
-          { "field": "divorce_rate_per_1000_2024", "title": "Divorce rate", "format": ".1f" }
-        ]
+          "tooltip": [
+            { "field": "properties.name", "title": "State/Territory" },
+            { "field": "overseas_born_percent_2021", "title": "Overseas-born (%)", "format": ".1f" },
+            { "field": "overseas_born_population_2021", "title": "Overseas-born population", "format": "," },
+            { "field": "total_population_2021", "title": "Total population", "format": "," },
+            { "field": "non_english_language_percent_2021", "title": "Non-English at home (%)", "format": ".1f" },
+            { "field": "non_english_language_count_2021", "title": "Non-English speakers", "format": "," }
+          ]
       }
     }
   ],
