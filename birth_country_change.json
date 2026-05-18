@@ -72,7 +72,42 @@
     {
       "transform": [
         {
-          "filter": "datum.year == 2025 || datum.year == '2025'"
+          "filter": "(datum.year == 2025 || datum.year == '2025') && datum.country == 'England'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -350,
+        "fontSize": 11
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "population",
+          "type": "quantitative"
+        },
+        "yOffset": {
+          "field": "label_dy",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "country"
+        },
+        "color": {
+          "field": "country",
+          "type": "nominal",
+          "legend": null
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "(datum.year == 2025 || datum.year == '2025') && datum.country != 'England'"
         }
       ],
       "mark": {
